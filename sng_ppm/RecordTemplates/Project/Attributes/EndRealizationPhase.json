@@ -1,0 +1,28 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Project",
+    "Alias": "EndRealizationPhase"
+  },
+  "Type": "Boolean",
+  "Format": "Undefined",
+  "Name": "Завершение фазы ТП ",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": true,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix math: <http://www.w3.org/2000/10/swap/math#>.\r\n@prefix assert: <http://comindware.com/logics/assert#>.\r\n{\r\n    (\"Project\" \"RealizationPhase\") object:findProperty ?rphase.\r\n    (\"RealizationPhase\" \"Workitems\") object:findProperty ?coll.\r\n    (\"Workitem\" \"Status\") object:findProperty ?stat.\r\n    (\"WorkitemStatus\" \"Name\") object:findProperty ?name.\r\n    ?item ?rphase ?phase.\r\n    { \r\n        ?phase ?coll ?workitems1.              \r\n    } assert:count ?totalKol.\r\n    {\r\n        ?phase ?coll ?workitems2.\r\n        ?workitems2 ?stat ?status.\r\n        ?status ?name ?statName.\r\n        ?statName == \"Завершена\".\r\n    } assert:count ?Count.\r\n    ?totalKol math:greaterThan 0.\r\n    ?totalKol == ?Count.\r\n    true == ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "CON_Firms",
+    "Alias": "name"
+  },
+  "Type": "String",
+  "Format": "PlainText",
+  "Name": "Наименование",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": true,
+  "IsIndexed": false,
+  "IsTracked": true,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": true,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": false,
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

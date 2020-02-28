@@ -1,0 +1,77 @@
+{
+  "$type": "Comindware.Platform.Contracts.IntermediateEventActivityModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Activity",
+    "Owner": "ProcessingProjectRequest",
+    "Alias": "timerIntermediateEvent2"
+  },
+  "Kind": "Timer",
+  "IsInterrupting": false,
+  "TimerDefinition": {
+    "$type": "Comindware.Platform.Contracts.TimerEventDefinitionModel, Comindware.Platform.Contracts",
+    "TimeRule": {
+      "$type": "Comindware.Platform.Contracts.CalculationRuleModel, Comindware.Platform.Contracts",
+      "Type": "Calculation",
+      "Definition": {
+        "$type": "Comindware.Platform.Contracts.ValuesRuleDefinitionModel, Comindware.Platform.Contracts",
+        "Values": {
+          "$type": "System.Object[], mscorlib",
+          "$values": [
+            "PT5S"
+          ]
+        },
+        "Type": "Values"
+      }
+    }
+  },
+  "BehaviourState": "Active",
+  "Title": "Ожидает регламентного срока",
+  "IsTitleSet": true,
+  "Position": {
+    "$type": "Comindware.Platform.Contracts.VectorModel, Comindware.Platform.Contracts",
+    "X": 580.0,
+    "Y": 520.0
+  },
+  "Size": {
+    "$type": "Comindware.Platform.Contracts.DimensionsModel, Comindware.Platform.Contracts",
+    "Width": 40.0,
+    "Height": 40.0
+  },
+  "Connectors": {
+    "$type": "Comindware.Platform.Contracts.ConnectorModel[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "ProcessingProjectRequest",
+          "Alias": "flow7"
+        },
+        "TargetConnectorIndex": 10,
+        "OwnIndex": 0
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "ProcessingProjectRequest",
+          "Alias": "flow8"
+        },
+        "TargetConnectorIndex": 0,
+        "OwnIndex": 40
+      }
+    ]
+  },
+  "OwnerEmbeddedProcessActivityAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "MountedOnAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "Type": "IntermediateEvent"
+}

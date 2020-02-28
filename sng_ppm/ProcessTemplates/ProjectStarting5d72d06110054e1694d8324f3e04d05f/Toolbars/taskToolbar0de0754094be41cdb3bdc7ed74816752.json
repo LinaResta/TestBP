@@ -1,0 +1,46 @@
+{
+  "$type": "Comindware.Platform.Contracts.ToolbarModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Toolbar",
+    "Owner": "ProjectStarting5d72d06110054e1694d8324f3e04d05f",
+    "Alias": "taskToolbar0de0754094be41cdb3bdc7ed74816752"
+  },
+  "Name": "Task toolbar",
+  "IsDefaultForLists": false,
+  "IsDefaultForForms": true,
+  "IsDefaultForProcess": false,
+  "Items": {
+    "$type": "System.Collections.Generic.List`1[[Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts]], mscorlib",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts",
+        "UserCommandGlobalAlias": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "UserCommand",
+          "Owner": "ProjectStarting5d72d06110054e1694d8324f3e04d05f",
+          "Alias": "editTask"
+        },
+        "Name": "Сохранить",
+        "Order": 0,
+        "Type": "Action",
+        "IconType": "Undefined",
+        "Severity": "None"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts",
+        "UserCommandGlobalAlias": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "UserCommand",
+          "Owner": "ProjectStarting5d72d06110054e1694d8324f3e04d05f",
+          "Alias": "completeTask"
+        },
+        "Name": "Завершить задачу",
+        "Order": 1,
+        "Type": "Action",
+        "IconType": "Undefined",
+        "Severity": "None"
+      }
+    ]
+  }
+}

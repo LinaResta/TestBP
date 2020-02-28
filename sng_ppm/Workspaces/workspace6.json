@@ -1,0 +1,299 @@
+{
+  "$type": "Comindware.Platform.Contracts.RoleWorkspaceConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RoleWorkspace",
+    "Alias": "workspace6"
+  },
+  "Name": "Куратор УИТ",
+  "Roles": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+        "Type": "RoleConfiguration",
+        "Alias": "Curator_UIT"
+      }
+    ]
+  },
+  "NavigationItems": {
+    "$type": "Comindware.Platform.Contracts.NavigationItemModel[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+        "Name": "Мои задачи ",
+        "Container": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "ProcessTemplate",
+          "Alias": "ProcessingWorkItem"
+        },
+        "Priority": 6,
+        "ItemType": "List",
+        "NavigationType": "SystemNavigation",
+        "ContainerType": "ProcessTemplate",
+        "IconClass": "tasks",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Dataset",
+          "Owner": "ProcessingWorkItem",
+          "Alias": "newList"
+        },
+        "Severity": "None"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+        "Name": "Заявки на проекты",
+        "Container": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "RecordTemplate",
+          "Alias": "ProjectRequest"
+        },
+        "Priority": 5,
+        "ItemType": "List",
+        "NavigationType": "SystemNavigation",
+        "ContainerType": "RecordTemplate",
+        "IconClass": "list-alt",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Dataset",
+          "Owner": "ProjectRequest",
+          "Alias": "defaultList"
+        },
+        "Severity": "None"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+        "Name": "Портфели проектов",
+        "Container": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Undefined"
+        },
+        "Priority": 4,
+        "ItemType": "Group",
+        "NavigationType": "SystemNavigation",
+        "ContainerType": "Group",
+        "IconClass": "briefcase",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Undefined"
+        },
+        "Severity": "None",
+        "ChildrenItems": {
+          "$type": "Comindware.Platform.Contracts.NavigationItemModel[], Comindware.Platform.Contracts",
+          "$values": [
+            {
+              "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+              "Name": "План-графики",
+              "Container": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "RecordTemplate",
+                "Alias": "Schedule"
+              },
+              "Priority": 4,
+              "ItemType": "List",
+              "NavigationType": "SystemNavigation",
+              "ContainerType": "RecordTemplate",
+              "IconClass": "list-alt",
+              "Target": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "Dataset",
+                "Owner": "Schedule",
+                "Alias": "ListGP"
+              },
+              "Severity": "None"
+            },
+            {
+              "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+              "Name": "Список проектов ПГ 2019-2021",
+              "Container": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "RecordTemplate",
+                "Alias": "Project"
+              },
+              "Priority": 3,
+              "ItemType": "List",
+              "NavigationType": "SystemNavigation",
+              "ContainerType": "RecordTemplate",
+              "IconClass": "list-alt",
+              "Target": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "Dataset",
+                "Owner": "Project",
+                "Alias": "ListProj1921"
+              },
+              "Severity": "None"
+            },
+            {
+              "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+              "Name": "Неактивные проекты ПГ 2019-2021",
+              "Container": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "RecordTemplate",
+                "Alias": "Project"
+              },
+              "Priority": 2,
+              "ItemType": "List",
+              "NavigationType": "SystemNavigation",
+              "ContainerType": "RecordTemplate",
+              "IconClass": "thumbs-down",
+              "Target": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "Dataset",
+                "Owner": "Project",
+                "Alias": "InactiveProject1"
+              },
+              "Severity": "None"
+            },
+            {
+              "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+              "Name": "Диаграммы по проектам ПГ 2019-2021",
+              "Description": "Диаграммы по проектам ПГ 2019-2021",
+              "Container": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "Undefined"
+              },
+              "Priority": 1,
+              "ItemType": "DashboardPage",
+              "NavigationType": "SystemNavigation",
+              "ContainerType": "DashboardPage",
+              "IconClass": "chart-pie",
+              "Target": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "Undefined"
+              },
+              "Severity": "None"
+            }
+          ]
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+        "Name": "Мои планы работ (Куратор)",
+        "Container": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "RecordTemplate",
+          "Alias": "WorkPlan"
+        },
+        "Priority": 3,
+        "ItemType": "List",
+        "NavigationType": "SystemNavigation",
+        "ContainerType": "RecordTemplate",
+        "IconClass": "list-alt",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Dataset",
+          "Owner": "WorkPlan",
+          "Alias": "ListCurator"
+        },
+        "Severity": "None"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+        "Name": "Отчеты",
+        "Container": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Undefined"
+        },
+        "Priority": 2,
+        "ItemType": "Group",
+        "NavigationType": "SystemNavigation",
+        "ContainerType": "Group",
+        "IconClass": "clone",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Undefined"
+        },
+        "Severity": "None",
+        "ChildrenItems": {
+          "$type": "Comindware.Platform.Contracts.NavigationItemModel[], Comindware.Platform.Contracts",
+          "$values": [
+            {
+              "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+              "Name": "Отчеты по проектам",
+              "Container": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "RecordTemplate",
+                "Alias": "Reports"
+              },
+              "Priority": 3,
+              "ItemType": "List",
+              "NavigationType": "SystemNavigation",
+              "ContainerType": "RecordTemplate",
+              "IconClass": "list-alt",
+              "Target": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "Dataset",
+                "Owner": "Reports",
+                "Alias": "newList1"
+              },
+              "Severity": "None"
+            },
+            {
+              "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+              "Name": "Отчеты по планам",
+              "Container": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "RecordTemplate",
+                "Alias": "Reports"
+              },
+              "Priority": 2,
+              "ItemType": "List",
+              "NavigationType": "SystemNavigation",
+              "ContainerType": "RecordTemplate",
+              "IconClass": "list-alt",
+              "Target": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "Dataset",
+                "Owner": "Reports",
+                "Alias": "newList2"
+              },
+              "Severity": "None"
+            },
+            {
+              "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+              "Name": "Отчеты по консалтингу",
+              "Container": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "RecordTemplate",
+                "Alias": "Reports"
+              },
+              "Priority": 1,
+              "ItemType": "List",
+              "NavigationType": "SystemNavigation",
+              "ContainerType": "RecordTemplate",
+              "IconClass": "list-alt",
+              "Target": {
+                "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+                "Type": "Dataset",
+                "Owner": "Reports",
+                "Alias": "newList3"
+              },
+              "Severity": "None"
+            }
+          ]
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.NavigationItemModel, Comindware.Platform.Contracts",
+        "Name": "Инструкции",
+        "Container": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "RecordTemplate",
+          "Alias": "Instructions"
+        },
+        "Priority": 1,
+        "ItemType": "List",
+        "NavigationType": "SystemNavigation",
+        "ContainerType": "RecordTemplate",
+        "IconClass": "glasses",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Dataset",
+          "Owner": "Instructions",
+          "Alias": "defaultList"
+        },
+        "Severity": "None"
+      }
+    ]
+  }
+}

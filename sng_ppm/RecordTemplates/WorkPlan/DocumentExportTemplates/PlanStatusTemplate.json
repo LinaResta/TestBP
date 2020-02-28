@@ -1,0 +1,27 @@
+{
+  "$type": "Comindware.Platform.Contracts.DocumentExportTemplateModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "ExportTemplate",
+    "Owner": "WorkPlan",
+    "Alias": "PlanStatusTemplate"
+  },
+  "FileName": "PlanStatus.docx",
+  "FileType": "Word",
+  "NameRuleModel": {
+    "$type": "Comindware.Platform.Contracts.CalculationRuleModel, Comindware.Platform.Contracts",
+    "Type": "Calculation",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.ValuesRuleDefinitionModel, Comindware.Platform.Contracts",
+      "Values": {
+        "$type": "System.Object[], mscorlib",
+        "$values": [
+          "Сводка о выполнении плана"
+        ]
+      },
+      "Type": "Values"
+    }
+  },
+  "StreamId": "cmw.xmlns:.stream:///.682ff267-2730-4df7-bd1c-ba273d441b0f",
+  "ExportAsPdf": false
+}

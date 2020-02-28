@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Project",
+    "Alias": "SCHEDULE_HANA"
+  },
+  "Type": "String",
+  "Format": "PlainText",
+  "Name": "SCHEDULE_HANA",
+  "Description": "Для ханы - id план-графика",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix cmwstring: <http://comindware.com/logics/string#>.\r\n@prefix string: <http://www.w3.org/2000/10/swap/string#>.\r\n@prefix ui: <http://comindware.com/ontology/ui#>.\r\n@prefix account: <http://comindware.com/ontology/account#>.\r\n\r\n{\r\n    (\"Project\" \"Schedule\") object:findProperty ?TProject.\r\n\r\n    from{\r\n        ?item ?TProject ?id.\r\n        ?id ui:toClientString ?idStringValue.\r\n    } select ?idStringValue -> ?stringValues.\r\n    (\";\" ?stringValues) cmwstring:join ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

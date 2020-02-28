@@ -1,0 +1,123 @@
+{
+  "$type": "Comindware.Platform.Contracts.SubProcessActivityModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Activity",
+    "Owner": "InclusionProjectInSchedule",
+    "Alias": "subProcess3"
+  },
+  "ProcessTemplateAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "ProcessTemplate",
+    "Alias": "ScheduleApproval"
+  },
+  "Loop": {
+    "$type": "Comindware.Platform.Contracts.ForEachLoopModel, Comindware.Platform.Contracts",
+    "IsSequential": false,
+    "LoopInput": {
+      "$type": "Comindware.Platform.Contracts.CalculationRuleModel, Comindware.Platform.Contracts",
+      "Type": "Calculation",
+      "Definition": {
+        "$type": "Comindware.Platform.Contracts.PropertyRuleDefinitionModel, Comindware.Platform.Contracts",
+        "PropertyPath": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias[], Comindware.Platform.Contracts",
+          "$values": [
+            {
+              "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+              "Type": "Attribute",
+              "Owner": "Project",
+              "Alias": "Schedule"
+            }
+          ]
+        },
+        "Type": "Property"
+      }
+    },
+    "Kind": "ForEach"
+  },
+  "LoopAdapter": {
+    "$type": "Comindware.Platform.Contracts.SubProcessLoopAdapterModel, Comindware.Platform.Contracts",
+    "ModificationAction": {
+      "$type": "Comindware.Platform.Contracts.ModificationActionModel, Comindware.Platform.Contracts",
+      "PropertyPath": {
+        "$type": "Comindware.Platform.Contracts.GlobalAlias[], Comindware.Platform.Contracts",
+        "$values": [
+          {
+            "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+            "Type": "Attribute",
+            "Alias": "id"
+          }
+        ]
+      },
+      "PropertyAction": "Replace"
+    }
+  },
+  "Definition": {
+    "$type": "Comindware.Platform.Contracts.SubProcessDefinitionModel, Comindware.Platform.Contracts",
+    "InputMapping": {
+      "$type": "Comindware.Platform.Contracts.MakeObjectRuleModel, Comindware.Platform.Contracts",
+      "RecordTemplate": {
+        "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+        "Type": "Undefined"
+      },
+      "Type": "MakeObject"
+    },
+    "ReturnMapping": {
+      "$type": "Comindware.Platform.Contracts.MakeObjectRuleModel, Comindware.Platform.Contracts",
+      "RecordTemplate": {
+        "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+        "Type": "Undefined"
+      },
+      "Type": "MakeObject"
+    }
+  },
+  "BehaviourState": "Active",
+  "Title": "Формирование план-графика",
+  "IsTitleSet": true,
+  "Position": {
+    "$type": "Comindware.Platform.Contracts.VectorModel, Comindware.Platform.Contracts",
+    "X": 745.0,
+    "Y": 110.0
+  },
+  "Size": {
+    "$type": "Comindware.Platform.Contracts.DimensionsModel, Comindware.Platform.Contracts",
+    "Width": 150.0,
+    "Height": 100.0
+  },
+  "Connectors": {
+    "$type": "Comindware.Platform.Contracts.ConnectorModel[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "InclusionProjectInSchedule",
+          "Alias": "flowFlow3"
+        },
+        "TargetConnectorIndex": 10,
+        "OwnIndex": 100
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "InclusionProjectInSchedule",
+          "Alias": "flow2"
+        },
+        "TargetConnectorIndex": 0,
+        "OwnIndex": 40
+      }
+    ]
+  },
+  "OwnerEmbeddedProcessActivityAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "MountedOnAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "Type": "SubProcess"
+}

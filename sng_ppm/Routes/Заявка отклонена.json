@@ -1,0 +1,47 @@
+{
+  "$type": "Comindware.Platform.Contracts.CommunicationRouteModel, Comindware.Platform.Contracts",
+  "Name": "Заявка отклонена",
+  "CommunicationChannelName": "Электронная почта",
+  "MessageType": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "MessageTemplate",
+    "Alias": "MessageRequestRejected"
+  },
+  "IsUsePersonalCommunicationChannel": false,
+  "PersonalChannelAccountProperty": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "Map": {
+    "$type": "Comindware.Platform.Contracts.ResultHandlingMapModel[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ResultHandlingMapModel, Comindware.Platform.Contracts",
+        "MessageTypeAlias": "{request}",
+        "ResponseKey": "ToAddress"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ResultHandlingMapModel, Comindware.Platform.Contracts",
+        "MessageTypeAlias": "Заявка на проект {request} отклонена.",
+        "ResponseKey": "Body"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ResultHandlingMapModel, Comindware.Platform.Contracts",
+        "MessageTypeAlias": "Заявка отклонена",
+        "ResponseKey": "Subject"
+      }
+    ]
+  },
+  "Type": "Outgoing",
+  "DataSet": "MailSet",
+  "ResponseFormat": "AsIs",
+  "IsDisabled": false,
+  "MessageName": "MessageRequestRejected",
+  "ProcessTemplate": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "RouteTarget": "Undefined",
+  "IsInternal": false,
+  "Severity": "Undefined"
+}

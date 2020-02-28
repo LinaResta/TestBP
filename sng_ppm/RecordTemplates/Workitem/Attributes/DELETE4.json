@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Workitem",
+    "Alias": "DELETE4"
+  },
+  "Type": "Boolean",
+  "Format": "Undefined",
+  "Name": "DELETE4",
+  "Description": "Выражение должно выводить TRUE, если хотя бы один из исполнителей (атрибут Performers) будет принадлежать к определенной группе – «group.48»\n\nЭто нужно для настройки правил на форме - если в исполнителях находится человек из группы «Консультанты» то выводить вкладку «Консалтинг» на форме работы, в противном случае – скрывать её.",
+  "IsSystem": false,
+  "IsDisabled": true,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix group: <http://comindware.com/ontology/group#>.\r\n@prefix account: <http://comindware.com/ontology/account#>.\r\n@prefix assert: <http://comindware.com/logics/assert#>.\r\n{\r\n    (\"Workitem\" \"Performers\") object:findProperty ?Performers.\r\n\r\n    false -> ?value.\r\n\r\n    ?group rdf:type account:Group.\r\n    ?group account:groupName \"Консалтинг\".\r\n    {\r\n        ?group account:groupUsers ?users.\r\n        ?item ?Performers ?PerformersVal.\r\n        ?PerformersVal == ?users.\r\n    } assert:count ?c.\r\n    if {not {?c == 0}}\r\n    then {true -> ?value.}\r\n    else {}.\r\n    \r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

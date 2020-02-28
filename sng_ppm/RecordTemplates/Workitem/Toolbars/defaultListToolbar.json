@@ -1,0 +1,91 @@
+{
+  "$type": "Comindware.Platform.Contracts.ToolbarModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Toolbar",
+    "Owner": "Workitem",
+    "Alias": "defaultListToolbar"
+  },
+  "Name": "Toolbar for lists",
+  "IsDefaultForLists": true,
+  "IsDefaultForForms": false,
+  "IsDefaultForProcess": false,
+  "Items": {
+    "$type": "System.Collections.Generic.List`1[[Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts]], mscorlib",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts",
+        "UserCommandGlobalAlias": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "UserCommand",
+          "Owner": "Workitem",
+          "Alias": "archive"
+        },
+        "Name": "Архивировать",
+        "Order": 0,
+        "Type": "Action",
+        "IconType": "Undefined",
+        "Severity": "None"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts",
+        "UserCommandGlobalAlias": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "UserCommand",
+          "Owner": "Workitem",
+          "Alias": "ProcessingWorkItem"
+        },
+        "Name": "Выполнение работы ",
+        "Order": 1,
+        "Type": "Action",
+        "IconType": "Undefined",
+        "Severity": "None"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts",
+        "UserCommandGlobalAlias": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "UserCommand",
+          "Owner": "Workitem",
+          "Alias": "WorkitemsStart"
+        },
+        "Name": "Запуск работ",
+        "Order": 2,
+        "Type": "Action",
+        "IconType": "Undefined",
+        "Severity": "None"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts",
+        "UserCommandGlobalAlias": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "UserCommand",
+          "Owner": "Workitem",
+          "Alias": "Delete"
+        },
+        "Name": "Удалить",
+        "Order": 3,
+        "Type": "Action",
+        "IconType": "Undefined",
+        "IconClass": "hand-pointer",
+        "Severity": "None"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ToolbarItemModel, Comindware.Platform.Contracts",
+        "UserCommandGlobalAlias": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "UserCommand",
+          "Owner": "Workitem",
+          "Alias": "create"
+        },
+        "Name": "Create",
+        "Description": "Create",
+        "Order": 4,
+        "Type": "Action",
+        "IconType": "Undefined",
+        "IconClass": "align-justify",
+        "Severity": "None"
+      }
+    ]
+  }
+}

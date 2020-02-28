@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Workitem",
+    "Alias": "PHASE1_ID"
+  },
+  "Type": "String",
+  "Format": "PlainText",
+  "Name": "PHASE1_ID",
+  "Description": "Для ханы - id фазы КП",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n\r\n{\r\n  (\"Workitem\" \"ParentWorkitem\") object:findProperty ?parentProperty.\r\n  (\"Workitem\" \"DesigningPhase\" )object:findProperty ?phaseProperty.\r\n  (\"DesigningPhase\" \"id\" )object:findProperty ?phaseId.  \r\n  (?item ?parentProperty) object:getRootByParentProperty ?rootTask.\r\n\r\n  or\r\n  {\r\n    ?rootTask ?phaseProperty ?phase.\r\n    ?phase ?phaseId ?id.\r\n  }\r\n  or\r\n  {\r\n    ?rootTask ?phaseProperty ?phase.\r\n    ?phase ?phaseId ?id.\r\n  }.\r\n  ?id -> ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

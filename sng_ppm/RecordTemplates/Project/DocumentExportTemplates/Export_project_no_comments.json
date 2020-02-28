@@ -1,0 +1,27 @@
+{
+  "$type": "Comindware.Platform.Contracts.DocumentExportTemplateModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "ExportTemplate",
+    "Owner": "Project",
+    "Alias": "Export_project_no_comments"
+  },
+  "FileName": "ProjectTemplate_no_comm.docx",
+  "FileType": "Word",
+  "NameRuleModel": {
+    "$type": "Comindware.Platform.Contracts.CalculationRuleModel, Comindware.Platform.Contracts",
+    "Type": "Calculation",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.ValuesRuleDefinitionModel, Comindware.Platform.Contracts",
+      "Values": {
+        "$type": "System.Object[], mscorlib",
+        "$values": [
+          "План проекта"
+        ]
+      },
+      "Type": "Values"
+    }
+  },
+  "StreamId": "cmw.xmlns:.stream:///.d5253460-daf0-42e1-8c33-73ede40f9234",
+  "ExportAsPdf": false
+}

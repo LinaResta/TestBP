@@ -1,0 +1,42 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "Workitem",
+    "Alias": "ChangeWorkItemToPlanned"
+  },
+  "Name": "Установка статуса \"Запланирована\"",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": false,
+  "SkipValidation": false,
+  "Context": "Record",
+  "Multiplicity": "OneByOne",
+  "Kind": "Script",
+  "ResultType": "DataChange",
+  "ConfirmationModelConfiguration": {
+    "$type": "Comindware.Platform.Contracts.UserCommandConfirmationModel, Comindware.Platform.Contracts",
+    "Title": "Установка статуса",
+    "Text": "Выполнить смену статуса работ на \"Запланирована\"",
+    "YesButtonText": "Выполнить",
+    "NoButtonText": "Отмена",
+    "Severity": "None"
+  },
+  "ScriptRule": {
+    "$type": "Comindware.Platform.Contracts.UserCommandScriptRuleModel, Comindware.Platform.Contracts",
+    "Type": "UserCommandScript",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.CSharpRuleDefinitionModel, Comindware.Platform.Contracts",
+      "EntryPoint": "Script",
+      "Code": "// Установка статуса \"Запланирована\"\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Comindware.Data.Entity;\r\nusing Comindware.TeamNetwork.Api.Data.UserCommands;\r\nusing Comindware.TeamNetwork.Api.Data;\r\nusing Newtonsoft.Json;\r\nusing System.Net;\r\nusing System.IO;\r\nusing System.Text;\r\nusing System.Diagnostics;\r\nusing RestSharp;\r\nusing RestSharp.Authenticators;\r\n\r\npublic class Script\r\n{    \r\n    public static UserCommandResult Main(UserCommandContext userCommandContext, Comindware.Entities entities)\r\n    {\r\n        var workItems = userCommandContext.SelectedIds;\r\n        var plannedStatus = entities.WorkitemStatus.Where(x => x.Name == \"Запланирована\").Select(x => x.id).FirstOrDefault();\r\n        var finishedStatus = entities.WorkitemStatus.Where(x => x.Name == \"Завершена\").Select(x => x.id).FirstOrDefault();\r\n        \r\n        var data = new Dictionary<string, object>() {\r\n            { \"Status\", plannedStatus}\r\n        };\r\n        \r\n        foreach (var wi in workItems) {\r\n            // проверим статус задачи, если она завершена, то ничего не делаем\r\n            var currentStatus = entities.Workitem.Where(x => x.id == wi).Select(x => new { x.Status }).FirstOrDefault();\r\n            if (currentStatus.Status == finishedStatus) {\r\n                continue;\r\n            }           \r\n            \r\n            // узнаем, запущен ли по работе уже процесс\r\n           \tvar activeTask = Api.Process.ProcessObjectService.GetReferencedTasks(wi).Where(x => x.Status == UserTaskStatus.InProgress).FirstOrDefault(); \r\n            if (activeTask != null) {\r\n                continue; // процесс есть, ничего не делаем\r\n            }\r\n            \r\n            // процесса нет, получим плановую дату начала работы\r\n            DateTime plannedStartDate = (DateTime) entities.Workitem.Where(x => x.id == wi).Select(x => new { x.PlannedStartDate }).FirstOrDefault().PlannedStartDate;\r\n            plannedStartDate = plannedStartDate.AddHours(5);\t// добавим 5 часов, т.к. в базе лежит на 5 часов меньше того, что отображается на экране\r\n            // если она <= текущий день, то нужно стартовать процесс запуска работы\r\n            if (plannedStartDate <= DateTime.Now) { \r\n                Api.Process.ProcessObjectService.CreateWithObjectId(\"pa.9\", null, wi, 1);\r\n            }  \r\n        }\r\n        \r\n        // поменяем статус на запланировано\r\n        foreach (var wi in workItems) {\r\n            // проверим статус задачи, если она завершена, то ничего не делаем\r\n            var currentStatus = entities.Workitem.Where(x => x.id == wi).Select(x => new { x.Status }).FirstOrDefault();\r\n            if (currentStatus.Status == finishedStatus) {\r\n                continue;\r\n            }\r\n            \r\n            // узнаем, запущен ли по работе уже процесс\r\n           \tvar activeTask = Api.Process.ProcessObjectService.GetReferencedTasks(wi).Where(x => x.Status == UserTaskStatus.InProgress).FirstOrDefault(); \r\n            if (activeTask != null) {\r\n                continue; // процесс есть, ничего не делаем\r\n            }\r\n            \r\n            // поменяем статус на запланировано\r\n            Api.TeamNetwork.ObjectService.EditWithAlias(\"Workitem\", wi, data);                                \r\n        }    \r\n        \r\n        var result = new UserCommandResult\r\n        {\r\n            Success = true,\r\n            Commited = true,\r\n            ResultType = UserCommandResultType.DataChange,\r\n            Messages = new[]\r\n            {\r\n                new UserCommandMessage\r\n                {\r\n                    Severity = SeverityLevel.Normal,\r\n                    Text = \"Операция выполнена\"\r\n                }\r\n            }\r\n        };\r\n\r\n        return result;\r\n    }\r\n}",
+      "Type": "CSharpExpression"
+    }
+  },
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "Undefined",
+  "LockStateVisibilityType": "Undefined"
+}

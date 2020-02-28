@@ -1,0 +1,28 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Project",
+    "Alias": "lastChangeWork"
+  },
+  "Type": "DateTime",
+  "Format": "ShortDateShortTime",
+  "Name": "Последнее изменение работ",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": true,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix math: <http://comindware.com/logics/math#>.\r\n@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix assert: <http://comindware.com/logics/assert#>.\r\n \r\n \r\n{\r\n                (\"Project\" \"DesigningPhase\") object:findProperty ?projectPropertyInDesigning.\r\n                (\"Project\" \"RealizationPhase\" )object:findProperty ?projectPropertyInRealization.\r\n               (\"Project\" \"TestProductionPhase\" )object:findProperty ?projectPropertyInTestProduction.\r\n                (\"Workitem\" \"DesigningPhase\") object:findProperty ?designingPhaseProperty.\r\n                (\"Workitem\" \"RealizationPhase\" )object:findProperty ?realizationPhaseProperty.\r\n                (\"Workitem\" \"TestProductionPhase\" )object:findProperty ?testProductionPhaseProperty.\r\n                (\"Workitem\" \"ParentWorkitem\") object:findProperty ?parentProperty.\r\n    (\"Workitem\" \"_lastWriteDate\") object:findProperty ?lastWriteDate.\r\n \r\n \r\nif {?item ?projectPropertyInDesigning ?phase1.} then{?item ?projectPropertyInDesigning ?phase1.} else {0 -> ?phase1.}.\r\nif {?item ?projectPropertyInRealization ?phase2.} then{?item ?projectPropertyInRealization ?phase2.} else {0 -> ?phase2.}.\r\nif {?item ?projectPropertyInTestProduction ?phase3.} then{?item ?projectPropertyInTestProduction ?phase3.} else {0 -> ?phase3.}.\r\n \r\nfrom\r\n    {\r\n        ?WorkitemTemplate object:alias \"Workitem\".\r\n        ?WorkitemItems cmw:container ?WorkitemTemplate.\r\n        (?WorkitemItems ?parentProperty) object:getRootByParentProperty ?rootTask.\r\n                or {?rootTask ?designingPhaseProperty ?phase1.}\r\n                or {?rootTask ?realizationPhaseProperty ?phase2.}\r\n                or {?rootTask ?testProductionPhaseProperty ?phase3.}.\r\n                               ?WorkitemItems ?lastWriteDate ?lastWriteDateVal.\r\n    } select ?lastWriteDateVal -> ?lastWriteDateList.\r\n \r\n?lastWriteDateList math:max ?m.\r\n?m -> ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

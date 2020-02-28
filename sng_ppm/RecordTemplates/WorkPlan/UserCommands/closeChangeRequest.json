@@ -1,0 +1,42 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "WorkPlan",
+    "Alias": "closeChangeRequest"
+  },
+  "Name": "Закрытие ЗИ",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": false,
+  "SkipValidation": false,
+  "Context": "Record",
+  "Multiplicity": "OneByOne",
+  "Kind": "Script",
+  "ResultType": "DataChange",
+  "ConfirmationModelConfiguration": {
+    "$type": "Comindware.Platform.Contracts.UserCommandConfirmationModel, Comindware.Platform.Contracts",
+    "Title": "Новая операция",
+    "Text": "Подтвердить выполнение операции",
+    "YesButtonText": "Выполнить",
+    "NoButtonText": "Отмена",
+    "Severity": "None"
+  },
+  "ScriptRule": {
+    "$type": "Comindware.Platform.Contracts.UserCommandScriptRuleModel, Comindware.Platform.Contracts",
+    "Type": "UserCommandScript",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.CSharpRuleDefinitionModel, Comindware.Platform.Contracts",
+      "EntryPoint": "Script",
+      "Code": "// 7 ПРОЕКТ Закрытие ЗИ\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Comindware.Data.Entity;\r\nusing Comindware.TeamNetwork.Api.Data.UserCommands;\r\nusing Newtonsoft.Json;\r\nusing System.Net;\r\nusing System.IO;\r\nusing System.Text;\r\nusing System.Diagnostics;\r\nusing RestSharp;\r\nusing RestSharp.Authenticators;\r\n\r\npublic class Script\r\n{\r\n    public class ChangeRequest\r\n    {\r\n        public string State { get; set; }\r\n        public string SmGuid { get; set; }      // Guid ЗИ в SAP\r\n        public string SmId { get; set; }        // ID ЗИ в SAP\r\n    }\r\n\r\n    public class ChangeRequestResult : ChangeRequest {\r\n        public string ErrorText { get; set; }\r\n        public string ErrorCode { get; set; }\r\n    }\r\n\r\n    public class RequestResultRaw {\r\n        [JsonProperty(\"d\")]\r\n        public ChangeRequestResult ChangeRequestResult { get; set; }\r\n\r\n        [JsonProperty(\"error\")]\r\n        public ErrorResult Error { get; set; }\r\n    }\r\n\r\n    public class ErrorResult {\r\n        [JsonProperty(\"message\")]\r\n        public Message Message { get; set; }\r\n    }\r\n\r\n    public class Message {\r\n        [JsonProperty(\"value\")]\r\n        public string Value { get; set; }\r\n    }\r\n\r\n    public static object GetObjectValue(string objectId, string propertyAlias) {\r\n        var data = Api.TeamNetwork.ObjectService.GetPropertyValues(new[] {objectId}, new string[] {propertyAlias});\r\n        return data[objectId][propertyAlias];\r\n    }\r\n\r\n    public static UserCommandResult Main(UserCommandContext userCommandContext, Comindware.Entities entities)\r\n    {\r\n        var planId = userCommandContext.ObjectIds.FirstOrDefault();\r\n        var objectApp = Api.TeamNetwork.ObjectAppService.GetByAlias(\"WorkPlan\");\r\n        var objectAppId = objectApp.Id;\r\n\r\n        // Получаем dictionary с данными о текущем проекте\r\n        var planData = Api.TeamNetwork.ObjectService.GetWithAlias(\"WorkPlan\", planId);\r\n\r\n        object currentSmIdObj;\r\n        string currentSmId = null;\r\n        if (planData.TryGetValue(\"ChangeRequestRef\", out currentSmIdObj)) {\r\n           currentSmId = currentSmIdObj as string;\r\n        }\r\n        var smGuid = GetObjectValue(currentSmId, \"GUID\") as string;\r\n        var smId = (decimal) GetObjectValue(currentSmId, \"documentNumber\");\r\n\r\n        var changeRequest = new ChangeRequest {\r\n            SmGuid = smGuid,\r\n            SmId = \"0\" + smId.ToString(),\r\n            State = \"Завершено\"\r\n        };\r\n        \r\n        // считаем все значения настроек\r\n        var settingsId = entities.CustomSettings.Where(x => x.name == \"SolmanCharm\").Select(x => new { x.id }).FirstOrDefault();\r\n        var settings = entities.CustomSettingsValues.Where(x => x.customSettings == settingsId.id).Select(x => new { x.parameter, x.value }).ToList();\r\n        \r\n        // прочитаем значение логина и пароля пользователя\r\n        var userLogin = settings.Where(x => x.parameter == \"userLogin\").Select(x => x.value).FirstOrDefault();\r\n        var userPassword = settings.Where(x => x.parameter == \"userPassword\").Select(x => x.value).FirstOrDefault();\r\n        \r\n        // прочитаем систему, с которой будем интегрироваться\r\n        var currentSystem = settings.Where(x => x.parameter == \"currentSystem\").Select(x => x.value).FirstOrDefault();\r\n        var systemAddr = settings.Where(x => x.parameter == currentSystem).Select(x => x.value).FirstOrDefault();\r\n\r\n        // сформируем адрес сервиса\r\n        var url = systemAddr + \"/sap/opu/odata/sap/ZGP_ODATA_CHARM_SRV\";\r\n        \r\n        var jsonData = JsonConvert.SerializeObject(changeRequest, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });\r\n        var client = new RestClient(url) {\r\n            Authenticator = new HttpBasicAuthenticator(userLogin, userPassword)\r\n        };\r\n        var request = new RestSharp.RestRequest(string.Format(\"/RequestForChangeSet('{0}')\", smGuid), Method.PUT);\r\n        request.JsonSerializer.ContentType = \"application/json; charset=utf-8\";\r\n        request.AddParameter(\"application/json\", jsonData , ParameterType.RequestBody);\r\n        request.AddHeader(\"X-Requested-With\", \"X\");\r\n\r\n        var response = client.Execute(request);\r\n        RequestResultRaw requestResultRaw = null;\r\n\r\n        var success = (int)response.StatusCode < 400;\r\n        string errorText = \"\";\r\n        if (!success) {\r\n            requestResultRaw = JsonConvert.DeserializeObject<RequestResultRaw>(response.Content);\r\n            var error = requestResultRaw.Error;\r\n            if (requestResultRaw.Error != null && requestResultRaw.Error.Message != null) {\r\n                errorText = requestResultRaw.Error.Message.Value;\r\n            } else {\r\n                errorText = \"Ошибка, обратитесь к системному администратору\";\r\n            }\r\n        }\r\n\r\n        var result = new UserCommandResult {\r\n            Success = success,\r\n            Commited = success,\r\n            ResultType = UserCommandResultType.DataChange,\r\n            Messages = new[] {\r\n                new UserCommandMessage {\r\n                    Severity = success ? SeverityLevel.Normal : SeverityLevel.Critical,\r\n                    Text = success ? \"ЗИ успешно закрыт \" : errorText\r\n                }\r\n            }\r\n        };\r\n        return result;\r\n    }\r\n}\r\n",
+      "Type": "CSharpExpression"
+    }
+  },
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "Undefined",
+  "LockStateVisibilityType": "Undefined"
+}

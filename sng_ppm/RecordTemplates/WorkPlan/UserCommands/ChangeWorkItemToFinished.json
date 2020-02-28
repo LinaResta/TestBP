@@ -1,0 +1,42 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "WorkPlan",
+    "Alias": "ChangeWorkItemToFinished"
+  },
+  "Name": "Завершить работы",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": false,
+  "SkipValidation": false,
+  "Context": "Record",
+  "Multiplicity": "OneByOne",
+  "Kind": "Script",
+  "ResultType": "DataChange",
+  "ConfirmationModelConfiguration": {
+    "$type": "Comindware.Platform.Contracts.UserCommandConfirmationModel, Comindware.Platform.Contracts",
+    "Title": "Завершение работ",
+    "Text": "Выполнить смену статуса работ на \"Завершена\"",
+    "YesButtonText": "Выполнить",
+    "NoButtonText": "Отмена",
+    "Severity": "None"
+  },
+  "ScriptRule": {
+    "$type": "Comindware.Platform.Contracts.UserCommandScriptRuleModel, Comindware.Platform.Contracts",
+    "Type": "UserCommandScript",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.CSharpRuleDefinitionModel, Comindware.Platform.Contracts",
+      "EntryPoint": "Script",
+      "Code": "// Завершить работы\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Comindware.Data.Entity;\r\nusing Comindware.TeamNetwork.Api.Data;\r\nusing Comindware.TeamNetwork.Api.Data.UserCommands;\r\nusing Newtonsoft.Json;\r\nusing System.Net;\r\nusing System.IO;\r\nusing System.Text;\r\nusing System.Diagnostics;\r\nusing RestSharp;\r\nusing RestSharp.Authenticators;\r\n\r\npublic class Script\r\n{    \r\n    public static UserCommandResult Main(UserCommandContext userCommandContext, Comindware.Entities entities)\r\n    {\r\n        var workItems = userCommandContext.SelectedIds;\r\n        var finishedStatus = entities.WorkitemStatus.Where(x => x.Name == \"Завершена\").Select(x => x.id).FirstOrDefault();\r\n\r\n        // закроем по работам все связанные задачи\r\n        foreach (var wi in workItems) {\r\n            var activeTask = Api.Process.ProcessObjectService.GetReferencedTasks(wi).Where(x => x.Status == UserTaskStatus.InProgress).FirstOrDefault(); \r\n            if (activeTask == null) {\r\n                continue;\r\n            }\r\n            Api.TeamNetwork.UserTaskService.Complete(activeTask.Id, true);\r\n        }\r\n \r\n        var data = new Dictionary<string, object>() {\r\n            { \"Status\", finishedStatus}\r\n            //{ \"EndDate\", DateTime.Now}          // проставим фактическую дату окончания \r\n        };\r\n\r\n        // проставим работам, что у них статус завершено\r\n        foreach (var wi in workItems) {\r\n            // проставим фактическую дату начала (если ее нет)\r\n            data.Remove(\"StartDate\");   // для каждой работы может быть своя дата начала                        \r\n            var dateFact = entities.Workitem.Where(x => x.id == wi).Select(x => new { x.StartDate }).FirstOrDefault().StartDate;\r\n            var datePlan = entities.Workitem.Where(x => x.id == wi).Select(x => new { x.PlannedStartDate }).FirstOrDefault().PlannedStartDate; \r\n            if (dateFact == null) {\r\n                data.Add(\"StartDate\", datePlan);    // получим плановую дату начала\r\n            }            \r\n            \r\n            Api.TeamNetwork.ObjectService.EditWithAlias(\"Workitem\", wi, data);\r\n        }\r\n         foreach (var wi in workItems) {\r\n            // проставим фактическую дату завершения (если ее нет)\r\n            data.Remove(\"EndDate\");   // для каждой работы может быть своя дата завершения                       \r\n            var dateFactEnd = entities.Workitem.Where(x => x.id == wi).Select(x => new { x.EndDate }).FirstOrDefault().EndDate;\r\n            if (dateFactEnd == null) {\r\n                data.Add(\"EndDate\", DateTime.Now);    // получим плановую дату завершения\r\n            }            \r\n            \r\n            Api.TeamNetwork.ObjectService.EditWithAlias(\"Workitem\", wi, data);\r\n        } \r\n        \r\n        var result = new UserCommandResult {\r\n            Success = true,\r\n            Commited = true,\r\n            ResultType = UserCommandResultType.DataChange,\r\n            Messages = new[] {\r\n                new UserCommandMessage {\r\n                    Severity = SeverityLevel.Normal,\r\n                    Text = \"Операция выполнена\"\r\n                }\r\n            }\r\n        };\r\n\r\n        return result;\r\n    }\r\n}",
+      "Type": "CSharpExpression"
+    }
+  },
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "NotChange",
+  "LockStateVisibilityType": "VisibleOnLock"
+}

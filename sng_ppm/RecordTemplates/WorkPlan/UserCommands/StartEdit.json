@@ -1,0 +1,24 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "WorkPlan",
+    "Alias": "StartEdit"
+  },
+  "Name": "Начать редактирование",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": true,
+  "SkipValidation": false,
+  "Context": "Record",
+  "Multiplicity": "OneByOne",
+  "Kind": "Edit",
+  "ResultType": "DataChange",
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "Lock",
+  "LockStateVisibilityType": "HiddenOnLock"
+}

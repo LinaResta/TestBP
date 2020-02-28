@@ -1,0 +1,28 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Workitem",
+    "Alias": "consultCount"
+  },
+  "Type": "Decimal",
+  "Format": "Integer",
+  "Name": "consultCount",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix group: <http://comindware.com/ontology/group#>.\r\n@prefix account: <http://comindware.com/ontology/account#>.\r\n@prefix assert: <http://comindware.com/logics/assert#>.\r\n@prefix cmw: <http://comindware.com/logics#>.\r\n{\r\n    (\"Workitem\" \"Performers\") object:findProperty ?Performers.\r\n    (\"CON_Consultants\" \"ADUser\") object:findProperty ?ADUser.\r\n\r\n?Template object:alias \"CON_Consultants\".\r\n    {?users cmw:container ?Template.\r\n     ?users ?ADUser ?usersVal.\r\n     ?item ?Performers ?PerformersVal.\r\n     ?PerformersVal == ?usersVal.\r\n    } assert:count ?c.\r\n    ?c -> ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

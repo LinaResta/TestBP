@@ -1,0 +1,34 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "CustomSettings",
+    "Alias": "ReadSettings"
+  },
+  "Name": "ReadSettings",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": false,
+  "SkipValidation": false,
+  "Context": "Record",
+  "Multiplicity": "OneByOne",
+  "Kind": "Script",
+  "ResultType": "Notificate",
+  "ScriptRule": {
+    "$type": "Comindware.Platform.Contracts.UserCommandScriptRuleModel, Comindware.Platform.Contracts",
+    "Type": "UserCommandScript",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.CSharpRuleDefinitionModel, Comindware.Platform.Contracts",
+      "EntryPoint": "Script",
+      "Code": "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Comindware.Data.Entity;\r\nusing Comindware.TeamNetwork.Api.Data;\r\nusing Comindware.TeamNetwork.Api.Data.UserCommands;\r\nusing Newtonsoft.Json;\r\nusing System.Net;\r\nusing System.IO;\r\nusing System.Text;\r\nusing System.Diagnostics;\r\n\r\npublic static class Script {\r\n\r\n\tpublic static UserCommandResult Main(UserCommandContext userCommandContext, Comindware.Entities entities) {\r\n\r\n        // получим id нужных нам настроек для интеграции\r\n        var settingsId = entities.CustomSettings.Where(x => x.name == \"SolmanCharm\").Select(x => new { x.id }).FirstOrDefault();\r\n        \r\n        // считаем все значения настроек\r\n        var settings = entities.CustomSettingsValues.Where(x => x.customSettings == settingsId.id).Select(x => new { x.parameter, x.value }).ToList();\r\n        \r\n        // прочитаем значение логина и пароля пользователя\r\n        var userLogin = settings.Where(x => x.parameter == \"userLogin\").Select(x => x.value).FirstOrDefault();\r\n        var userPassword = settings.Where(x => x.parameter == \"userPassword\").Select(x => x.value).FirstOrDefault();\r\n        \r\n        // прочитаем систему, с которой будем интегрироваться\r\n        var currentSystem = settings.Where(x => x.parameter == \"currentSystem\").Select(x => x.value).FirstOrDefault();\r\n        var systemAddr = settings.Where(x => x.parameter == currentSystem).Select(x => x.value).FirstOrDefault();\r\n\r\n        // прочитаем время, за которое нужно считать документы ДИ\r\n        var searchParam = settings.Where(x => x.parameter == \"searchParam\").Select(x => x.value).FirstOrDefault();\r\n        \r\n        return new UserCommandResult {\r\n\t\t\t\tSuccess = false,\r\n\t\t\t\tCommited = false,\r\n\t\t\t\tResultType = UserCommandResultType.Notificate,\r\n\t\t\t\tMessages = new[] {\r\n\t\t\t\t\tnew UserCommandMessage {\r\n\t\t\t\t        Severity = SeverityLevel.Normal,\r\n\t\t\t\t        Text = searchParam\r\n\t\t\t\t    }\r\n\t\t\t\t}\r\n\t\t\t};\r\n    }\r\n}\r\n",
+      "Type": "CSharpExpression"
+    }
+  },
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "Undefined",
+  "LockStateVisibilityType": "Undefined"
+}

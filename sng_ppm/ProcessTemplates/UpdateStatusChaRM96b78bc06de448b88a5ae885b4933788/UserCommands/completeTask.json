@@ -1,0 +1,25 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "UpdateStatusChaRM96b78bc06de448b88a5ae885b4933788",
+    "Alias": "completeTask"
+  },
+  "Name": "Завершить задачу",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": false,
+  "SkipValidation": false,
+  "Context": "Task",
+  "Multiplicity": "OneByOne",
+  "Kind": "CompleteTask",
+  "ResultType": "DataChange",
+  "ConditionRule": "$taskStatus == \"cmw.taskStatus.inProgress\"",
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "Undefined",
+  "LockStateVisibilityType": "Undefined"
+}

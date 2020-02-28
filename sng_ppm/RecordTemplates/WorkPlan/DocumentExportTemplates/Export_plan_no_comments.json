@@ -1,0 +1,27 @@
+{
+  "$type": "Comindware.Platform.Contracts.DocumentExportTemplateModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "ExportTemplate",
+    "Owner": "WorkPlan",
+    "Alias": "Export_plan_no_comments"
+  },
+  "FileName": "PlanTemplate_no_comm.docx",
+  "FileType": "Word",
+  "NameRuleModel": {
+    "$type": "Comindware.Platform.Contracts.CalculationRuleModel, Comindware.Platform.Contracts",
+    "Type": "Calculation",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.ValuesRuleDefinitionModel, Comindware.Platform.Contracts",
+      "Values": {
+        "$type": "System.Object[], mscorlib",
+        "$values": [
+          "План работ"
+        ]
+      },
+      "Type": "Values"
+    }
+  },
+  "StreamId": "cmw.xmlns:.stream:///.65ce2d98-8783-466a-b369-82ade6aa64f6",
+  "ExportAsPdf": false
+}

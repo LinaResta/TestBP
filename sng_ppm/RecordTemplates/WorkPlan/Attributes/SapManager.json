@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "WorkPlan",
+    "Alias": "SapManager"
+  },
+  "Type": "Instance",
+  "Format": "Link",
+  "Name": "Руководитель плана (логин SAP)",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix cmw: <http://comindware.com/logics#>.\n@prefix object: <http://comindware.com/ontology/object#>.\n@prefix account: <http://comindware.com/ontology/account#>.\n\n{\n  (\"ProjectRole\" \"Name\") object:findProperty ?rolename.\n  (\"WorkPlan\" \"WorkGroup\") object:findProperty ?group.\n  (\"ProjectTeam\" \"Role\") object:findProperty ?roles.\n  (\"ProjectTeam\" \"Performers\") object:findProperty ?performers.\n  (\"Users\" \"SNG_LOGIN\") object:findProperty ?user_login.\n\n \n  ?manager ?rolename \"Руководитель\".\n  ?item ?group ?team.\n  ?team ?roles ?manager.  \n  ?team ?performers ?user.\n  ?user account:username ?login.\n  ?value ?user_login ?login.\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RecordTemplate",
+    "Alias": "Users"
+  }
+}

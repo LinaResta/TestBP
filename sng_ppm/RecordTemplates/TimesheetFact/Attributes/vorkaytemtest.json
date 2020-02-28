@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "TimesheetFact",
+    "Alias": "vorkaytemtest"
+  },
+  "Type": "Instance",
+  "Format": "Link",
+  "Name": "воркайтемтест",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": true,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix object: <http://comindware.com/ontology/object#>.\n{\n    (\"TimesheetPlan\" \"Trudozatratyfakticheskie\") object:findProperty ?Trudozatratyfakticheskie.\n    (\"TimesheetPlan\" \"Workitem\") object:findProperty ?Workitem.\n\n\t?TimesheetPlan ?Trudozatratyfakticheskie ?item.\n\t?TimesheetPlan ?Workitem ?value.\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RecordTemplate",
+    "Alias": "Workitem"
+  }
+}

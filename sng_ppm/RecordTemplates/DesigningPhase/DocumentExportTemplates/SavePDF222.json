@@ -1,0 +1,27 @@
+{
+  "$type": "Comindware.Platform.Contracts.DocumentExportTemplateModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "ExportTemplate",
+    "Owner": "DesigningPhase",
+    "Alias": "SavePDF222"
+  },
+  "FileName": "FileTemplate.docx",
+  "FileType": "Word",
+  "NameRuleModel": {
+    "$type": "Comindware.Platform.Contracts.CalculationRuleModel, Comindware.Platform.Contracts",
+    "Type": "Calculation",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.ValuesRuleDefinitionModel, Comindware.Platform.Contracts",
+      "Values": {
+        "$type": "System.Object[], mscorlib",
+        "$values": [
+          "File"
+        ]
+      },
+      "Type": "Values"
+    }
+  },
+  "StreamId": "cmw.xmlns:.stream:///.1b381e9d-6aae-4d48-aef7-c5f049fd300e",
+  "ExportAsPdf": false
+}

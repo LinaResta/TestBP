@@ -1,0 +1,11 @@
+{
+  "$type": "Comindware.Platform.Contracts.TemplateInfoModel, Comindware.Platform.Contracts",
+  "Name": "КОН_Договор SAP",
+  "Description": "Номера договоров консалтинга SAP",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RecordTemplate",
+    "Alias": "CON_SAPDogovor"
+  },
+  "IsDisabled": false
+}

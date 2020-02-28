@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "ChaRMDoc",
+    "Alias": "Project"
+  },
+  "Type": "Instance",
+  "Format": "Link",
+  "Name": "Project",
+  "IsSystem": false,
+  "IsDisabled": true,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": true,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix cmw: <http://comindware.com/logics#>.\n@prefix object: <http://comindware.com/ontology/object#>.\n{\n  (\"Project\" \"id\") object:findProperty ?workPlanProperty.\n    \n  (?item ?parentProperty) object:getRootByParentProperty ?rootTask. \n  ?rootTask ?workPlanProperty ?value.\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RecordTemplate",
+    "Alias": "Project"
+  }
+}

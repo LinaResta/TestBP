@@ -1,0 +1,28 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "ProjectTeam",
+    "Alias": "Firm"
+  },
+  "Type": "String",
+  "Format": "PlainText",
+  "Name": "Firm",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": true,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix account: <http://comindware.com/ontology/account#>.\r\n\r\n{\r\n  (\"ProjectTeam\" \"Performers\") object:findProperty ?Perform.\r\n  (\"CON_Consultants\" \"Firm\") object:findProperty ?Firm.\r\n  (\"CON_Consultants\" \"ADUser\") object:findProperty ?ADUser.\r\n  (\"CON_Firms\" \"name\") object:findProperty ?Name.\r\n  \r\n  ?Template object:alias \"CON_Consultants\".\r\n  ?users cmw:container ?Template.\r\n\r\n  ?item ?Perform ?user.\r\n  ?users ?ADUser ?user.\r\n  ?users ?Firm ?userfirm.  \r\n  ?userfirm ?Name ?value. \r\n  }",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

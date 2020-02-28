@@ -1,0 +1,75 @@
+{
+  "$type": "Comindware.Platform.Contracts.TaskActivityModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Activity",
+    "Owner": "WorkitemsStarting1562e248346b4578a9d900138dcf4b86",
+    "Alias": "scriptTask1"
+  },
+  "Kind": "Script",
+  "ScriptDefinition": {
+    "$type": "Comindware.Platform.Contracts.ScriptTaskDefinitionModel, Comindware.Platform.Contracts",
+    "Script": {
+      "$type": "Comindware.Platform.Contracts.CustomRuleModel, Comindware.Platform.Contracts",
+      "Type": "Custom",
+      "Definition": {
+        "$type": "Comindware.Platform.Contracts.CSharpRuleDefinitionModel, Comindware.Platform.Contracts",
+        "Code": "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Comindware.Data.Entity;\r\nclass Script\r\n{\r\n    public static void Main(Comindware.Process.Api.Data.ScriptContext context, Comindware.Entities entities)\r\n    {\r\n        var query = new Comindware.TeamNetwork.Api.Data.DatasetQuery\r\n        {\r\n            DatasetId = \"lst.54\"\r\n        };\r\n        var sessionsData = Api.TeamNetwork.DatasetService.QueryData(query).Rows;\r\n        if (sessionsData == null) { return; }\r\n        foreach (var row in sessionsData) \r\n        {\r\n            Api.Process.ProcessObjectService.CreateWithObjectId(\"pa.9\", null, row.Id, 1);\r\n        }\r\n    }\r\n}",
+        "Type": "CSharpExpression"
+      }
+    }
+  },
+  "FormAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "BehaviourState": "Active",
+  "Title": "Запуск работ выполняется",
+  "IsTitleSet": true,
+  "Position": {
+    "$type": "Comindware.Platform.Contracts.VectorModel, Comindware.Platform.Contracts",
+    "X": 880.0,
+    "Y": 125.0
+  },
+  "Size": {
+    "$type": "Comindware.Platform.Contracts.DimensionsModel, Comindware.Platform.Contracts",
+    "Width": 120.0,
+    "Height": 70.0
+  },
+  "Connectors": {
+    "$type": "Comindware.Platform.Contracts.ConnectorModel[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "WorkitemsStarting1562e248346b4578a9d900138dcf4b86",
+          "Alias": "flow4"
+        },
+        "TargetConnectorIndex": 0,
+        "OwnIndex": 40
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "WorkitemsStarting1562e248346b4578a9d900138dcf4b86",
+          "Alias": "flow3"
+        },
+        "TargetConnectorIndex": 10,
+        "OwnIndex": 100
+      }
+    ]
+  },
+  "OwnerEmbeddedProcessActivityAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "MountedOnAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "Type": "Task"
+}

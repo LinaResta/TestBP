@@ -1,0 +1,75 @@
+{
+  "$type": "Comindware.Platform.Contracts.TaskActivityModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Activity",
+    "Owner": "ProcessingProject",
+    "Alias": "scriptTask1"
+  },
+  "Kind": "Script",
+  "ScriptDefinition": {
+    "$type": "Comindware.Platform.Contracts.ScriptTaskDefinitionModel, Comindware.Platform.Contracts",
+    "Script": {
+      "$type": "Comindware.Platform.Contracts.CustomRuleModel, Comindware.Platform.Contracts",
+      "Type": "Custom",
+      "Definition": {
+        "$type": "Comindware.Platform.Contracts.CSharpRuleDefinitionModel, Comindware.Platform.Contracts",
+        "Code": "using System;\nusing System.Collections.Generic;\nusing System.Linq;\nusing Comindware.Data.Entity;\nusing Comindware.TeamNetwork.Api.Data.UserCommands;\nusing Newtonsoft.Json;\nusing System.Net;\nusing System.IO;\nusing System.Text;\nusing System.Diagnostics;\nusing RestSharp;\nusing RestSharp.Authenticators;\n\npublic class Script\n{\n    public class ChangeRequest\n    {\n        public string State { get; set; }\n\n        // Guid ЗИ в SAP\n        public string SmGuid { get; set; }\n\n        // ID ЗИ в SAP\n        public string SmId { get; set; }\n    }\n\n    public class ChangeRequestResult : ChangeRequest\n    {\n        public string ErrorText { get; set; }\n\n        public string ErrorCode { get; set; }\n    }\n\n    public class RequestResultRaw\n    {\n        [JsonProperty(\"d\")]\n        public ChangeRequestResult ChangeRequestResult { get; set; }\n\n\n        [JsonProperty(\"error\")]\n        public ErrorResult Error { get; set; }\n    }\n\n    public class ErrorResult\n    {\n        [JsonProperty(\"message\")]\n        public Message Message { get; set; }\n    }\n\n    public class Message\n    {\n        [JsonProperty(\"value\")]\n        public string Value { get; set; }\n    }\n\n    public static object GetObjectValue(string objectId, string propertyAlias)\n    {\n        var data = Api.TeamNetwork.ObjectService.GetPropertyValues(new[] {objectId}, new string[] {propertyAlias});\n        return data[objectId][propertyAlias];\n    }\n\n    public static void Main(Comindware.Process.Api.Data.ScriptContext context, Comindware.Entities entities)\n    {\n        var projectId = context.BusinessObjectId;\n        var objectApp = Api.TeamNetwork.ObjectAppService.GetByAlias(\"Project\");\n        var objectAppId = objectApp.Id;\n\n        // Получаем dictionary с данными о текущем проекте\n        var projectData = Api.TeamNetwork.ObjectService.GetWithAlias(\"Project\", projectId);\n\n        object currentSmIdObj;\n        string currentSmId = null;\n        if (projectData.TryGetValue(\"ChangeRequestRef\", out currentSmIdObj))\n        {\n           currentSmId = currentSmIdObj as string;\n        }\n        var smGuid = GetObjectValue(currentSmId, \"GUID\") as string;\n        var smId = (decimal) GetObjectValue(currentSmId, \"documentNumber\");\n\n        var changeRequest = new ChangeRequest\n        {\n            SmGuid = smGuid,\n            SmId = \"0\" + smId.ToString(),\n            State = \"Завершено\"\n        };\n\n        var username = \"CMW_SVC\";\n        var password = \"Cbap 2018\";\n        var url = \"http://sapsmd.oao.sng:8010/sap/opu/odata/sap/ZGP_ODATA_CHARM_SRV\";\n        var jsonData = JsonConvert.SerializeObject(changeRequest, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });\n        var client = new RestClient(url)\n        {\n            Authenticator = new HttpBasicAuthenticator(username, password)\n        };\n        var request = new RestSharp.RestRequest(string.Format(\"/RequestForChangeSet('{0}')\", smGuid), Method.PUT);\n        request.JsonSerializer.ContentType = \"application/json; charset=utf-8\";\n        request.AddParameter(\"application/json\", jsonData , ParameterType.RequestBody);\n        request.AddHeader(\"X-Requested-With\", \"X\");\n\n        var response = client.Execute(request);\n        //RequestResultRaw requestResultRaw = null;\n\n        //var success = (int)response.StatusCode < 400;\n        //string errorText = \"\";\n    }\n}\n",
+        "Type": "CSharpExpression"
+      }
+    }
+  },
+  "FormAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "BehaviourState": "Active",
+  "Title": "Закрытие ЗИ",
+  "IsTitleSet": true,
+  "Position": {
+    "$type": "Comindware.Platform.Contracts.VectorModel, Comindware.Platform.Contracts",
+    "X": 1320.0,
+    "Y": 465.0
+  },
+  "Size": {
+    "$type": "Comindware.Platform.Contracts.DimensionsModel, Comindware.Platform.Contracts",
+    "Width": 120.0,
+    "Height": 70.0
+  },
+  "Connectors": {
+    "$type": "Comindware.Platform.Contracts.ConnectorModel[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "ProcessingProject",
+          "Alias": "flowFlow3"
+        },
+        "TargetConnectorIndex": 0,
+        "OwnIndex": 10
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "ProcessingProject",
+          "Alias": "flow13"
+        },
+        "TargetConnectorIndex": 10,
+        "OwnIndex": 100
+      }
+    ]
+  },
+  "OwnerEmbeddedProcessActivityAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "MountedOnAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "Type": "Task"
+}

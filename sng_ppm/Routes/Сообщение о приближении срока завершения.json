@@ -1,0 +1,47 @@
+{
+  "$type": "Comindware.Platform.Contracts.CommunicationRouteModel, Comindware.Platform.Contracts",
+  "Name": "Сообщение о приближении срока завершения",
+  "CommunicationChannelName": "Электронная почта",
+  "MessageType": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "MessageTemplate",
+    "Alias": "MessageDeadlineWork"
+  },
+  "IsUsePersonalCommunicationChannel": false,
+  "PersonalChannelAccountProperty": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "Map": {
+    "$type": "Comindware.Platform.Contracts.ResultHandlingMapModel[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ResultHandlingMapModel, Comindware.Platform.Contracts",
+        "MessageTypeAlias": "Приближение срока завершения работы",
+        "ResponseKey": "Subject"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ResultHandlingMapModel, Comindware.Platform.Contracts",
+        "MessageTypeAlias": "{Receiver}",
+        "ResponseKey": "ToAddress"
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ResultHandlingMapModel, Comindware.Platform.Contracts",
+        "MessageTypeAlias": "Работа \"{Name}\" должна быть завершена в срок до {PlannedEndDate}.<br>{Link}\n",
+        "ResponseKey": "Body"
+      }
+    ]
+  },
+  "Type": "Outgoing",
+  "DataSet": "MailSet",
+  "ResponseFormat": "AsIs",
+  "IsDisabled": false,
+  "MessageName": "MessageDeadlineWork",
+  "ProcessTemplate": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "RouteTarget": "Undefined",
+  "IsInternal": false,
+  "Severity": "Undefined"
+}

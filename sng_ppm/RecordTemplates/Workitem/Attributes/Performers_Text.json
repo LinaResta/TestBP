@@ -1,0 +1,28 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Workitem",
+    "Alias": "Performers_Text"
+  },
+  "Type": "String",
+  "Format": "PlainText",
+  "Name": "Исполнители_Текст",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix cmwstring: <http://comindware.com/logics/string#>.\r\n@prefix ui: <http://comindware.com/ontology/ui#>.\r\n@prefix account: <http://comindware.com/ontology/account#>.\r\n\r\n{\r\n    (\"Workitem\" \"Performers\") object:findProperty ?PerformersProp.\r\n    \r\n    from{\r\n       ?item ?PerformersProp ?PerformersVal.\r\n\t   ?PerformersVal account:displayName ?PerformersName.\r\n       ?PerformersName ui:toClientString ?idStringValue.\r\n    } select ?idStringValue -> ?stringValues.\r\n    (\";\" ?stringValues) cmwstring:join ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

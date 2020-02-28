@@ -1,0 +1,28 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "WorkPlan",
+    "Alias": "lastChangeDate"
+  },
+  "Type": "DateTime",
+  "Format": "ShortDateShortTime",
+  "Name": "Последнее изменение в плане работ",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix math: <http://comindware.com/logics/math#>.\r\n@prefix cmw: <http://comindware.com/logics#>.\r\n{\r\n    (\"Workitem\" \"WorkPlan\") object:findProperty ?workPlanProperty.\r\n    (\"Workitem\" \"ParentWorkitem\") object:findProperty ?parentProperty.\r\n    (\"Workitem\" \"_lastWriteDate\") object:findProperty ?lastWriteDate.\r\n\r\n    from\r\n    {\r\n        ?WorkitemTemplate object:alias \"Workitem\".\r\n        ?WorkitemItems cmw:container ?WorkitemTemplate.\r\n        (?WorkitemItems ?parentProperty) object:getRootByParentProperty ?rootTask.\r\n        ?rootTask ?workPlanProperty ?item.\r\n        ?WorkitemItems ?lastWriteDate ?lastWriteDateVal.\r\n    } select ?lastWriteDateVal -> ?lastWriteDateList.\r\n\r\n    ?lastWriteDateList math:max ?m.\r\n    ?m -> ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "$type": "Comindware.Platform.Contracts.SynchronizationConfigModel, Comindware.Platform.Contracts",
+  "Name": "Справочник проектов внедрения",
+  "OperationType": "Import",
+  "RecordTemplate": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RecordTemplate",
+    "Alias": "TPROJECT"
+  },
+  "ODataChannel": "HANA",
+  "ExternalTemplate": "TPROJECTS",
+  "ImportSettings": {
+    "$type": "Comindware.Platform.Contracts.ImportSettingsModel, Comindware.Platform.Contracts",
+    "Filter": "",
+    "TimePropertyValue": "00:00:00"
+  },
+  "PropertyMap": {
+    "$type": "System.Collections.Generic.List`1[[Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts]], mscorlib",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": true,
+        "ExternalPropertyKey": "PROJECT_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "TPROJECT",
+          "Alias": "CODE"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "CLASS",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "TPROJECT",
+          "Alias": "CLASS"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "TITLE",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "TPROJECT",
+          "Alias": "NAME"
+        }
+      }
+    ]
+  },
+  "ScheduleConfiguration": {
+    "$type": "Comindware.Platform.Contracts.ScheduleConfigurationModel, Comindware.Platform.Contracts",
+    "Type": "Schedule",
+    "StartTime": "2019-05-22T17:00:00Z",
+    "Period": "1.00:00:00"
+  },
+  "DeleteConditionConfiguration": {
+    "$type": "Comindware.Platform.Contracts.DeleteConditionConfigurationModel, Comindware.Platform.Contracts",
+    "DeleteNonExistent": false
+  },
+  "ObjectFetchingStrategy": "All"
+}

@@ -1,0 +1,107 @@
+{
+  "$type": "Comindware.Platform.Contracts.DatasetModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Dataset",
+    "Owner": "Project",
+    "Alias": "ProjectsForStarting"
+  },
+  "IsLazyLoading": false,
+  "Name": "Проекты на выполнение",
+  "Columns": {
+    "$type": "System.Collections.Generic.List`1[[Comindware.Platform.Contracts.ColumnConfigurationModel, Comindware.Platform.Contracts]], mscorlib",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ColumnConfigurationModel, Comindware.Platform.Contracts",
+        "PropertyPath": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias[], Comindware.Platform.Contracts",
+          "$values": [
+            {
+              "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+              "Type": "Attribute",
+              "Owner": "Project",
+              "Alias": "Code"
+            }
+          ]
+        },
+        "Name": "Код",
+        "Layout": {
+          "$type": "Comindware.Platform.Contracts.ColumnLayoutModel, Comindware.Platform.Contracts",
+          "Flex": 1.0,
+          "Width": 0.0
+        },
+        "IsHidden": false
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ColumnConfigurationModel, Comindware.Platform.Contracts",
+        "PropertyPath": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias[], Comindware.Platform.Contracts",
+          "$values": [
+            {
+              "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+              "Type": "Attribute",
+              "Owner": "Project",
+              "Alias": "Name"
+            }
+          ]
+        },
+        "Name": "Наименование",
+        "Layout": {
+          "$type": "Comindware.Platform.Contracts.ColumnLayoutModel, Comindware.Platform.Contracts",
+          "Flex": 1.0,
+          "Width": 0.0
+        },
+        "IsHidden": false
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ColumnConfigurationModel, Comindware.Platform.Contracts",
+        "PropertyPath": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias[], Comindware.Platform.Contracts",
+          "$values": [
+            {
+              "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+              "Type": "Attribute",
+              "Owner": "Project",
+              "Alias": "Status"
+            }
+          ]
+        },
+        "Name": "Статус",
+        "Layout": {
+          "$type": "Comindware.Platform.Contracts.ColumnLayoutModel, Comindware.Platform.Contracts",
+          "Flex": 1.0,
+          "Width": 0.0
+        },
+        "IsHidden": false
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ColumnConfigurationModel, Comindware.Platform.Contracts",
+        "PropertyPath": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias[], Comindware.Platform.Contracts",
+          "$values": [
+            {
+              "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+              "Type": "Attribute",
+              "Owner": "Project",
+              "Alias": "PlannedStartDate"
+            }
+          ]
+        },
+        "Name": "Плановая дата начала",
+        "Layout": {
+          "$type": "Comindware.Platform.Contracts.ColumnLayoutModel, Comindware.Platform.Contracts",
+          "Flex": 1.0,
+          "Width": 0.0
+        },
+        "IsHidden": false
+      }
+    ]
+  },
+  "Paging": {
+    "$type": "Comindware.Platform.Contracts.PagingConfigurationModel, Comindware.Platform.Contracts",
+    "Page": 0,
+    "Size": 100
+  },
+  "ViewType": "General",
+  "SystemFilterExpression": "@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.\r\n@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix axis: <http://comindware.com/logics/axis#>.\r\n@prefix log: <http://www.w3.org/2000/10/swap/log#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix user: <http://comindware.com/ontology/user#>.\r\n@prefix property: <http://comindware.com/ontology/user/op#>.\r\n@prefix session: <http://comindware.com/ontology/session#>.\r\n@prefix time: <http://comindware.com/logics/time#>.\r\n@prefix math: <http://www.w3.org/2000/10/swap/math#>.\r\n@prefix cmwtime: <http://comindware.com/logics/time#>.\r\n@prefix process: <http://comindware.com/ontology/process#>.\r\n{\r\n    (\"ProjectStatus\" \"Name\") object:findProperty ?propStName.\r\n    (\"Project\" \"Status\") object:findProperty ?propStatus.\r\n    (\"Project\" \"PlannedStartDate\") object:findProperty ?propStDate.\r\n\r\n    session:context session:requestTime ?nowUTC.\r\n    \"2678400\"^^xsd:double <http://comindware.com/logics/time#toDuration> ?startDayOffset.\r\n    \"2419200\"^^xsd:double <http://comindware.com/logics/time#toDuration> ?endDayOffset.\r\n    ?nowUTC <http://comindware.com/ontology/entity/nullable#startOfDay> ?startOfCurrentDayUTC.\r\n    (?startOfCurrentDayUTC ?startDayOffset) <http://comindware.com/logics/time#addDuration> ?startTime.\r\n    (?startOfCurrentDayUTC ?endDayOffset) <http://comindware.com/logics/time#addDuration> ?endTime.\r\n\r\n    ?statname ?propStName \"Создан\".\r\n    ?item ?propStatus ?statname.\r\n    ?item ?propStDate ?startDate.\r\n    ?startDate math:greaterThan ?endTime.\r\n    ?startDate math:lessThan ?startTime.\r\n\r\n\tnot {\r\n\t\t? process:businessObject ?item.\r\n\t}\r\n}"
+}

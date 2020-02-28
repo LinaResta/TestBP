@@ -1,0 +1,25 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "ProcessingProject",
+    "Alias": "completeTask"
+  },
+  "Name": "Завершить задачу",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": false,
+  "SkipValidation": false,
+  "Context": "Task",
+  "Multiplicity": "OneByOne",
+  "Kind": "CompleteTask",
+  "ResultType": "DataChange",
+  "ConditionRule": "OR(OR(AND($cmw.task.objectId->op.427 == true, $cmw.task.objectId->op.248 == true), AND($cmw.task.objectId->op.428 == true, $cmw.task.objectId->op.249 == true)), OR(AND($cmw.task.objectId->op.429 == true, $cmw.task.objectId->op.250 == true), $cmw.task.objectId->op.430 == true))",
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "Undefined",
+  "LockStateVisibilityType": "Undefined"
+}

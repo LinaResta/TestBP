@@ -1,0 +1,42 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "Project",
+    "Alias": "PhaseInitialisation"
+  },
+  "Name": "Создать фазы",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": false,
+  "SkipValidation": false,
+  "Context": "Record",
+  "Multiplicity": "OneByOne",
+  "Kind": "Script",
+  "ResultType": "DataChange",
+  "ConfirmationModelConfiguration": {
+    "$type": "Comindware.Platform.Contracts.UserCommandConfirmationModel, Comindware.Platform.Contracts",
+    "Title": "Создание фаз проекта",
+    "Text": "Подтвердите выполнение операции",
+    "YesButtonText": "Выполнить",
+    "NoButtonText": "Отмена",
+    "Severity": "None"
+  },
+  "ScriptRule": {
+    "$type": "Comindware.Platform.Contracts.UserCommandScriptRuleModel, Comindware.Platform.Contracts",
+    "Type": "UserCommandScript",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.CSharpRuleDefinitionModel, Comindware.Platform.Contracts",
+      "EntryPoint": "Script",
+      "Code": "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Comindware.Data.Entity;\r\nusing Comindware.TeamNetwork.Api.Data.UserCommands;\r\n\r\npublic class Script\r\n{\r\n    private const string hasDPProperty = \"HasDesigningPhase\";\r\n    private const string hasRPProperty = \"HasRealizationPhase\";\r\n    private const string hasTPProperty = \"HasTestProductionPhase\";\r\n\r\n    private const string dpProperty = \"DesigningPhase\";\r\n    private const string rpProperty = \"RealizationPhase\";\r\n    private const string tpProperty = \"TestProductionPhase\";\r\n\r\n    private const string workitemsProperty = \"Workitems\";\r\n    private const string dpWorkitemsTemplateObject = \"9487\";\r\n    private const string rpWorkitemsTemplateObject = \"10565\";\r\n    private const string tpWorkitemsTemplateObject = \"11296\";\r\n\r\n    public static UserCommandResult Main(UserCommandContext userCommandContext, Comindware.Entities entities)\r\n    {\r\n        var workitems = Api.TeamNetwork.ObjectService.GetPropertyValues(new[] { dpWorkitemsTemplateObject, rpWorkitemsTemplateObject, tpWorkitemsTemplateObject }, new[] { workitemsProperty });\r\n        var projects = Api.TeamNetwork.ObjectService.GetPropertyValues(userCommandContext.ObjectIds, new[] { hasDPProperty, hasRPProperty, hasTPProperty, dpProperty, rpProperty, tpProperty });\r\n        foreach (var kvProject in projects)\r\n        {\r\n            var projectData = new Dictionary<string, object>();\r\n            var projectValues = kvProject.Value;\r\n            projectData[dpProperty] = ClonePhaseWorkitems(projectValues, workitems, hasDPProperty, dpProperty, dpWorkitemsTemplateObject, dpProperty);\r\n            projectData[rpProperty] = ClonePhaseWorkitems(projectValues, workitems, hasRPProperty, rpProperty, rpWorkitemsTemplateObject, rpProperty);\r\n            projectData[tpProperty] = ClonePhaseWorkitems(projectValues, workitems, hasTPProperty, tpProperty, tpWorkitemsTemplateObject, tpProperty);\r\n\r\n            Api.TeamNetwork.ObjectService.EditWithAlias(\"Project\", kvProject.Key, projectData);\r\n        }\r\n\r\n        var result = new UserCommandResult\r\n        {\r\n            Success = true,\r\n            Commited = true,\r\n            ResultType = UserCommandResultType.DataChange,\r\n            Messages = new[]\r\n            {\r\n                new UserCommandMessage\r\n                {\r\n                    Severity = SeverityLevel.Normal,\r\n                    Text = \"OK\"\r\n                }\r\n            }\r\n        };\r\n\r\n        return result;\r\n    }\r\n\r\n    private static string ClonePhaseWorkitems(Dictionary<string, object> projectValues, Dictionary<string, Dictionary<string, object>> workitems, string hasPhaseProperty, string phaseProperty, string phaseWorkitemsTemplateObject, string phaseTemplateAlias)\r\n    {\r\n        var cloneAdditionalData = new Dictionary<string, object>\r\n        {\r\n            { \"WorkitemsTemplate\", null}\r\n        };\r\n\r\n        object value;\r\n        if (projectValues.TryGetValue(hasPhaseProperty, out value) && (bool)value == true)\r\n        {\r\n            if (projectValues.TryGetValue(phaseProperty, out value) && !string.IsNullOrEmpty(value as string))\r\n            {\r\n                Api.TeamNetwork.ObjectService.Delete(value as string);\r\n            }\r\n\r\n            var templateWorkitems = workitems[phaseWorkitemsTemplateObject][workitemsProperty] as IList<object>;\r\n            var phaseWorkitems = new List<string>();\r\n            foreach (var wi in templateWorkitems)\r\n            {\r\n                var newWi = Api.TeamNetwork.ObjectService.Clone((string)wi, cloneAdditionalData, false);\r\n                phaseWorkitems.Add(newWi);\r\n            }\r\n\r\n            var phaseData = new Dictionary<string, object>\r\n            {\r\n                //{ \"Status\", 1},\r\n                { workitemsProperty, phaseWorkitems},\r\n            };\r\n            var phaseId = Api.TeamNetwork.ObjectService.CreateWithAlias(phaseTemplateAlias, phaseData);\r\n            return phaseId;\r\n        }\r\n        else\r\n        {\r\n            return null;\r\n        }\r\n    }\r\n}\r\n",
+      "Type": "CSharpExpression"
+    }
+  },
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "Undefined",
+  "LockStateVisibilityType": "Undefined"
+}

@@ -1,0 +1,28 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "CON_Consultants",
+    "Alias": "AD_LOGIN_HANA"
+  },
+  "Type": "String",
+  "Format": "PlainText",
+  "Name": "AD_LOGIN_HANA",
+  "IsSystem": false,
+  "IsDisabled": true,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": true,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix cmwstring: <http://comindware.com/logics/string#>.\r\n@prefix account: <http://comindware.com/ontology/account#>.\r\n@prefix string: <http://www.w3.org/2000/10/swap/string#>.\r\n\r\n{\r\n    (\"CON_Consultants\" \"ADUser\") object:findProperty ?user.\r\n    ?user account:mbox ?userLogin.\r\n    \r\n    ?userLogin == ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

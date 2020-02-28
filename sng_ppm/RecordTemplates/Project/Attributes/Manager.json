@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Project",
+    "Alias": "Manager"
+  },
+  "Type": "Account",
+  "Format": "Undefined",
+  "Name": "Руководитель",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": true,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix string: <http://comindware.com/logics/string#>.\r\n@prefix assert: <http://comindware.com/logics/assert#>.\r\n\r\n{\r\n  (\"ProjectRole\" \"Name\") object:findProperty ?rolename.\r\n  (\"Project\" \"TeamProject\") object:findProperty ?group.\r\n  (\"ProjectTeam\" \"Role\") object:findProperty ?roles.\r\n  (\"ProjectTeam\" \"Performers\") object:findProperty ?performers.\r\n  (\"Project\" \"Director\") object:findProperty ?director.\r\nor\r\n  {\r\n  ?item ?group ?team1. \r\n  ?manager1 ?rolename \"Руководитель\".\r\n  ?team1 ?roles ?manager1.\r\n  ?team1 ?performers ?result1.  \r\n \r\n  ?item ?group ?team2. \r\n  ?manager2 ?rolename \"Зам. руководителя\".\r\n  ?team2 ?roles ?manager2.\r\n  ?team2 ?performers ?result2.\r\n \r\n(\r\n                {?team1 ?performers ?value.}\r\n                {?team2 ?performers ?value.}\r\n                ) assert:union true.\r\n}\r\nor\r\n{\r\n  ?item ?group ?team. \r\n  ?manager ?rolename \"Руководитель\".\r\n  ?team ?roles ?manager.\r\n  ?team ?performers ?value. \r\n}.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RecordTemplate",
+    "Alias": "_Account"
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "$type": "Comindware.Platform.Contracts.IntermediateEventActivityModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Activity",
+    "Owner": "ProcessingWorkItem",
+    "Alias": "noneIntermediateEvent2"
+  },
+  "Kind": "Timer",
+  "IsInterrupting": false,
+  "TimerDefinition": {
+    "$type": "Comindware.Platform.Contracts.TimerEventDefinitionModel, Comindware.Platform.Contracts",
+    "TimeRule": {
+      "$type": "Comindware.Platform.Contracts.CalculationRuleModel, Comindware.Platform.Contracts",
+      "Type": "Calculation",
+      "Definition": {
+        "$type": "Comindware.Platform.Contracts.ExpressionRuleDefinitionModel, Comindware.Platform.Contracts",
+        "Expression": "IF(\r\n   OR(\r\n    AND(\r\n        GREATER(STARTOFDAY(NOW()), STARTOFDAY($PlannedEndDate)),\r\n        LESSEQ(STARTOFDAY(NOW()), STARTOFDAY($PlannedEndDate) + DURATIONFROMSECONDS(86400))),\r\n    EQUALS($StatusRef->Name,\"Выполнена\")),\r\n    DURATIONFROMSECONDS(0),\r\n   STARTOFDAY($PlannedEndDate) + DURATIONFROMSECONDS(126000) - NOW())",
+        "Type": "Expression"
+      }
+    }
+  },
+  "BehaviourState": "Active",
+  "Title": "Работа не выполнена в срок",
+  "IsTitleSet": true,
+  "Position": {
+    "$type": "Comindware.Platform.Contracts.VectorModel, Comindware.Platform.Contracts",
+    "X": 540.0,
+    "Y": 460.0
+  },
+  "Size": {
+    "$type": "Comindware.Platform.Contracts.DimensionsModel, Comindware.Platform.Contracts",
+    "Width": 40.0,
+    "Height": 40.0
+  },
+  "Connectors": {
+    "$type": "Comindware.Platform.Contracts.ConnectorModel[], Comindware.Platform.Contracts",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "ProcessingWorkItem",
+          "Alias": "flow6"
+        },
+        "TargetConnectorIndex": 10,
+        "OwnIndex": 30
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.ConnectorModel, Comindware.Platform.Contracts",
+        "Target": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Activity",
+          "Owner": "ProcessingWorkItem",
+          "Alias": "flow8"
+        },
+        "TargetConnectorIndex": 0,
+        "OwnIndex": 10
+      }
+    ]
+  },
+  "OwnerEmbeddedProcessActivityAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Activity",
+    "Owner": "ProcessingWorkItem",
+    "Alias": "embeddedProcess1"
+  },
+  "MountedOnAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "Type": "IntermediateEvent"
+}

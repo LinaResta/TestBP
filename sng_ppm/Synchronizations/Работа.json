@@ -1,0 +1,381 @@
+{
+  "$type": "Comindware.Platform.Contracts.SynchronizationConfigModel, Comindware.Platform.Contracts",
+  "Name": "Работа",
+  "OperationType": "Export",
+  "RecordTemplate": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RecordTemplate",
+    "Alias": "Workitem"
+  },
+  "ODataChannel": "HANA",
+  "ExternalTemplate": "WORK",
+  "ExportSettings": {
+    "$type": "Comindware.Platform.Contracts.ExportSettingsModel, Comindware.Platform.Contracts",
+    "DeleteRecordsAfterExport": false,
+    "ExportDisabled": true
+  },
+  "PropertyMap": {
+    "$type": "System.Collections.Generic.List`1[[Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts]], mscorlib",
+    "$values": [
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": true,
+        "ExternalPropertyKey": "ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Alias": "id"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "NAME",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "Name"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "DESCRIPTION",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "Description"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "COMMENTS",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "Comment"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "DATE_START_PLAN",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "PlannedStartDate"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "DATE_END_PLAN",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "PlannedEndDate"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "DATE_START_FACT",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "StartDate"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "DATE_END_FACT",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "EndDate"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "TYPE_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "TYPE_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "PERFORMERS_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "PERFORMERS_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "TECHPROCESS",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "TECHPROC_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "RESPONSIBLE_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "RESPONSIBLE_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "CREATE_DATE",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Alias": "creationDate"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": true,
+        "ExternalPropertyKey": "CHANGE_DATE",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Alias": "lastWriteDate"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "WORKPLAN_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "WORKPLAN_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "PARENTWORK_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "PARENTWORK_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "PHASE1_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "PHASE1_ID"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "PHASE2_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "PHASE2_ID"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "PHASE3_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "PHASE3_ID"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "SERIALNUMBER",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "SerialNumber"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "AUTONUMBER",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "AutoNumber"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "STATUS_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "STATUS_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "CITY_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "CITY_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "DIRWORKTYPE_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "DIRWORKTYPE_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "SAPCATEGORY_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "SAPCATEGORY_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "SAPCONTRACT_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "SAPCONTRACT_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "CONSULT_COUNT",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "consultCount"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "PLANDURATION",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "DURATION_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "ARCHIVED",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Alias": "isDisabled"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "PROJECT_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "PROJECT_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "SAPAGREEMENT_ID",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "SAPAGREEMENT_HANA"
+        }
+      },
+      {
+        "$type": "Comindware.Platform.Contracts.PropertyMapModel, Comindware.Platform.Contracts",
+        "IsKey": false,
+        "ExternalPropertyKey": "RESUME",
+        "InternalPropertyKey": {
+          "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+          "Type": "Attribute",
+          "Owner": "Workitem",
+          "Alias": "Comment1"
+        }
+      }
+    ]
+  },
+  "ScheduleConfiguration": {
+    "$type": "Comindware.Platform.Contracts.ScheduleConfigurationModel, Comindware.Platform.Contracts",
+    "Type": "Schedule",
+    "StartTime": "2019-05-22T05:15:00Z",
+    "Period": "01:00:00"
+  },
+  "DeleteConditionConfiguration": {
+    "$type": "Comindware.Platform.Contracts.DeleteConditionConfigurationModel, Comindware.Platform.Contracts",
+    "DeleteNonExistent": false
+  },
+  "ObjectFetchingStrategy": "All"
+}

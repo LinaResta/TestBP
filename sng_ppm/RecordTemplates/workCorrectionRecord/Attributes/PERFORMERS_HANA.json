@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "workCorrectionRecord",
+    "Alias": "PERFORMERS_HANA"
+  },
+  "Type": "String",
+  "Format": "PlainText",
+  "Name": "PERFORMERS_HANA",
+  "Description": "Для ханы - табельники исполнителей",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": true,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.\r\n@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix cmwstring: <http://comindware.com/logics/string#>.\r\n@prefix session: <http://comindware.com/ontology/session#>.\r\n@prefix math: <http://www.w3.org/2000/10/swap/math#>.\r\n@prefix string: <http://www.w3.org/2000/10/swap/string#>.\r\n@prefix ui: <http://comindware.com/ontology/ui#>.\r\n@prefix account: <http://comindware.com/ontology/account#>.\r\n@prefix entity: <http://comindware.com/ontology/entity#>.\r\n{\r\n    (\"workCorrectionRecord\" \"Performers\") object:findProperty ?PerformersProp.\r\n    (\"Users\" \"SNG_LOGIN\") object:findProperty ?LoginProp.\r\n    (\"Users\" \"PERNR\") object:findProperty ?TNProp.\r\n\r\n    from{\r\n       ?item ?PerformersProp ?PerformersVal.\r\n       ?PerformersVal account:username ?PerformersLogin.\r\n\r\n\t\t?PerformersLogin entity:toUpper ?PerformersLogin2.\r\n\r\n\t\tor { ?LoginVal ?LoginProp ?PerformersLogin. } or { ?LoginVal ?LoginProp ?PerformersLogin2. }. \r\n\r\n       ?LoginVal ?TNProp ?PerformersName.\r\n        ?PerformersName ui:toClientString ?idStringValue.\r\n    } select ?idStringValue -> ?stringValues.\r\n    (\";\" ?stringValues) cmwstring:join ?value.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  }
+}

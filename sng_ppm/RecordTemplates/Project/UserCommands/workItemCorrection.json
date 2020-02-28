@@ -1,0 +1,42 @@
+{
+  "$type": "Comindware.Platform.Contracts.UserCommandConfigurationModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "UserCommand",
+    "Owner": "Project",
+    "Alias": "workItemCorrection"
+  },
+  "Name": "Корректировка работы",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsPrepare": false,
+  "SkipValidation": false,
+  "Context": "Record",
+  "Multiplicity": "OneByOne",
+  "Kind": "Script",
+  "ResultType": "DataChange",
+  "ConfirmationModelConfiguration": {
+    "$type": "Comindware.Platform.Contracts.UserCommandConfirmationModel, Comindware.Platform.Contracts",
+    "Title": "Корректировка работы",
+    "Text": "Подтвердить выполнение операции",
+    "YesButtonText": "Выполнить",
+    "NoButtonText": "Отмена",
+    "Severity": "None"
+  },
+  "ScriptRule": {
+    "$type": "Comindware.Platform.Contracts.UserCommandScriptRuleModel, Comindware.Platform.Contracts",
+    "Type": "UserCommandScript",
+    "Definition": {
+      "$type": "Comindware.Platform.Contracts.CSharpRuleDefinitionModel, Comindware.Platform.Contracts",
+      "EntryPoint": "Script",
+      "Code": "using System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Comindware.Data.Entity;\r\nusing Comindware.TeamNetwork.Api.Data.UserCommands;\r\nusing Comindware.TeamNetwork.Api.Data;\r\n\r\nclass Script\r\n{\r\n    public static UserCommandResult Main(UserCommandContext userCommandContext, Comindware.Entities entities)\r\n    {     \r\n        if (userCommandContext.SelectedIds.Length == 0)\r\n        {\r\n\t\t\tvar resultf1 = new UserCommandResult\r\n\t\t\t{\r\n\t\t\t\tSuccess = false,\r\n\t\t\t\tCommited = false,\r\n\t\t\t\tResultType = UserCommandResultType.Notificate,\r\n\t\t\t\tMessages = new[]\r\n\t\t\t\t{\r\n\t\t\t\t\tnew UserCommandMessage\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tSeverity = SeverityLevel.Critical,\r\n\t\t\t\t\t\tText = \"Не выбрана ни одна работа\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t};\r\n\r\n\t\t\treturn resultf1;\r\n\t\t}\r\n        if (userCommandContext.SelectedIds.Length > 1)\r\n        {\r\n\t\t\tvar resultf2 = new UserCommandResult\r\n\t\t\t{\r\n\t\t\t\tSuccess = false,\r\n\t\t\t\tCommited = false,\r\n\t\t\t\tResultType = UserCommandResultType.Notificate,\r\n\t\t\t\tMessages = new[]\r\n\t\t\t\t{\r\n\t\t\t\t\tnew UserCommandMessage\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tSeverity = SeverityLevel.Critical,\r\n\t\t\t\t\t\tText = \"Для корректировки выберите одну работу\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t};\r\n\r\n\t\t\treturn resultf2;\r\n\t\t}\r\n\t\t\r\n        var data = new Dictionary<string, object>\r\n        {\r\n            {\"workItemLink\", userCommandContext.SelectedIds[0]}\r\n        };\r\n        \r\n        var corr = Api.TeamNetwork.ObjectService.CreateWithAlias(\"workCorrectionRecord\", data);\r\n\r\n\t\tstring processTemplateAlias = \"workCorrectionProcess\";\r\n\t\tvar processName = \"Корректировка работы (процесс)\";\r\n\t\tvar qProcessApp = Api.Process.ProcessAppService.GetProcessAppIdByAlias(processTemplateAlias);\r\n\t\tvar processId = Api.Process.ProcessObjectService.CreateWithObjectId(qProcessApp, processName, corr, 4);\r\n\t\t\r\n\t\t//var tasks = Api.Process.ProcessObjectService.GetActiveTokens(processId);\r\n\t\t//var tasks = Api.TeamNetwork.LinkedActivityService.GetLinkedActivities(corr);\r\n\t\tvar tasks = Api.Process.ProcessObjectService.GetReferencedTasks(corr);\r\n\t\tstring inst=null;\r\n\t\t\r\n\t\tforeach (var task in tasks)\r\n\t\t{\r\n\t\t\tinst = task.Id;\r\n\t\t}\r\n\t\t\r\n\t\tvar result = new UserCommandResult\r\n\t\t{\r\n\t\t\tSuccess = true,\r\n\t\t\tCommited = true,\r\n\t\t\tResultType = UserCommandResultType.Navigate,\r\n\t\t\t\tNavigationResult = new UserCommandNavigationResult\r\n\t\t\t\t{\r\n\t\t\t\t\tContext = ContextType.Task,\r\n\t\t\t\t\tObjectId = inst,\r\n\t\t\t\t},\r\n\t\t\tMessages = new[]\r\n\t\t\t{\r\n\t\t\t\tnew UserCommandMessage\r\n\t\t\t\t{\r\n\t\t\t\t\tSeverity = SeverityLevel.Normal,\r\n\t\t\t\t\tText = \"\"\r\n\t\t\t\t}\r\n\r\n\t\t\t}\r\n\t\t};\r\n\r\n\t\treturn result;\r\n\t\t\r\n    }\r\n}",
+      "Type": "CSharpExpression"
+    }
+  },
+  "RelatedEntityGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Undefined"
+  },
+  "LockStateChangeType": "Undefined",
+  "LockStateVisibilityType": "Undefined"
+}

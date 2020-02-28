@@ -1,0 +1,29 @@
+{
+  "$type": "Comindware.Platform.Contracts.AttributeModel, Comindware.Platform.Contracts",
+  "GlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "Attribute",
+    "Owner": "Workitem",
+    "Alias": "SAPPerformer"
+  },
+  "Type": "Instance",
+  "Format": "Link",
+  "Name": "Исполнитель (SAP логин)",
+  "IsSystem": false,
+  "IsDisabled": false,
+  "IsUnique": false,
+  "IsIndexed": false,
+  "IsTracked": false,
+  "IsDigitGrouping": false,
+  "IsMultiValue": false,
+  "IsTitle": false,
+  "IsMandatory": false,
+  "IsOwnership": false,
+  "IsCalculated": true,
+  "Expression": "@prefix cmw: <http://comindware.com/logics#>.\r\n@prefix object: <http://comindware.com/ontology/object#>.\r\n@prefix account: <http://comindware.com/ontology/account#>.\r\n\r\n{\r\n  (\"ProjectRole\" \"Name\") object:findProperty ?rolename.\r\n  (\"Workitem\" \"parentProject\") object:findProperty ?project.\r\n  (\"Workitem\" \"Performers\") object:findProperty ?projectorProperty.\r\n  (\"Project\" \"TeamProject\") object:findProperty ?prteam.\r\n  (\"ProjectTeam\" \"Role\") object:findProperty ?roles.\r\n  (\"ProjectTeam\" \"Performers\") object:findProperty ?performers.\r\n  (\"Users\" \"SNG_LOGIN\") object:findProperty ?user_login.\r\n\r\n  ?item ?projectorProperty ?ispolnitel.\r\n  #?projectValue ?prteam ?prteamValue.\r\n  #?rolemanager ?rolename \"Проектировщик\".\r\n  #?prteamValue ?roles ?rolemanager.  \r\n  #?prteamValue ?performers ?performersValue.\r\n  ?ispolnitel account:username ?login.\r\n  ?value ?user_login ?login.\r\n}",
+  "InstanceGlobalAlias": {
+    "$type": "Comindware.Platform.Contracts.GlobalAlias, Comindware.Platform.Contracts",
+    "Type": "RecordTemplate",
+    "Alias": "Users"
+  }
+}
